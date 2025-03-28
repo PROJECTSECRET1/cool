@@ -1,11 +1,18 @@
-from flask import Flask
+from flask import Flask, jsonify, request
 
 app = Flask(__name__)
 
-@app.route('/')
-def home():
-    return 'Hello, World!'
+VALID_KEYS = ["KARMASOHOT", "key2", "key3"]
 
-@app.route('/about')
-def about():
-    return 'About'
+@app.route('/api/validate_key', methods=['POST'])
+def validate_key():
+    data = request.json
+    key = data.get('key')
+    
+    if key in VALID_KEYS:
+        return jsonify({"valid": True})
+    else:
+        return jsonify({"valid": False})
+
+if __name__ == '__main__':
+    app.run(host='0.0.0.0', port=5000)
