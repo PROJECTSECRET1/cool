@@ -2,7 +2,11 @@ from flask import Flask, jsonify, request
 
 app = Flask(__name__)
 
-VALID_KEYS = ["KARMASOHOT", "key2", "key3"]
+VALID_KEYS = ["key1", "key2", "key3"]
+
+@app.route('/api/keys', methods=['GET'])
+def get_keys():
+    return jsonify(VALID_KEYS)
 
 @app.route('/api/validate_key', methods=['POST'])
 def validate_key():
